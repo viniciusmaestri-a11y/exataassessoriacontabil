@@ -1,4 +1,3 @@
-# bolt.new
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import { Building2, Calculator, FileText, Users, TrendingUp, Shield, Clock, Award } from 'lucide-react';
@@ -84,7 +83,6 @@ export default function Home({ onNavigate }: HomeProps) {
         <div className="absolute inset-0 bg-black opacity-10"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="max-w-3xl">
-            # exata-logo.png
             <img
   src={ExataLogo}
   alt="Exata Assessoria Contábil"
