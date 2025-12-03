@@ -1,3 +1,4 @@
+# bolt.new
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import { Building2, Calculator, FileText, Users, TrendingUp, Shield, Clock, Award } from 'lucide-react';
