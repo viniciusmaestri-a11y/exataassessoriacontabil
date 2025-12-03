@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+import L from 'leaflet';
 import { Building2, Calculator, FileText, Users, TrendingUp, Shield, Clock, Award } from 'lucide-react';
 import { services } from '../data/services';
 
@@ -42,6 +44,37 @@ export default function Home({ onNavigate }: HomeProps) {
     FileText,
     Users
   };
+
+  // === MAPA EXATA ASSESSORIA CONTÁBIL ===
+  const mapContainerRef = useRef<HTMLDivElement | null>(null);
+  const mapInstanceRef = useRef<L.Map | null>(null);
+
+  useEffect(() => {
+    if (!mapContainerRef.current || mapInstanceRef.current) return;
+
+    const map = L.map(mapContainerRef.current).setView(
+      [-23.408291241436434, -51.899834460929846],
+      16
+    );
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.marker([-23.408291241436434, -51.899834460929846])
+      .addTo(map)
+      .bindPopup('Exata Assessoria Contábil<br>Localização Exata no mapa.')
+      .openPopup();
+
+    mapInstanceRef.current = map;
+
+    return () => {
+      map.remove();
+      mapInstanceRef.current = null;
+    };
+  }, []);
+  // ================================
 
   return (
     <div className="min-h-screen">
@@ -213,6 +246,24 @@ export default function Home({ onNavigate }: HomeProps) {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* SEÇÃO DO MAPA */}
+      <section className="py-20 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#001a4d] mb-4">
+              Onde Estamos
+            </h2>
+            <p className="text-lg text-gray-600">
+              Veja a localização da Exata Assessoria Contábil em Maringá no mapa abaixo.
+            </p>
+          </div>
+          <div
+            ref={mapContainerRef}
+            className="w-full h-80 rounded-lg shadow-lg border border-gray-200"
+          />
         </div>
       </section>
 
