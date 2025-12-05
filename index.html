@@ -1,25 +1,39 @@
-<!doctype html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="EXATA Assessoria Contábil - Escritório de contabilidade em Maringá. Oferecemos serviços de contabilidade geral, planejamento tributário, departamento pessoal, abertura e encerramento de empresas." />
-    <meta name="keywords" content="contabilidade em Maringá, contador em Maringá, escritório contábil, abertura de empresa Maringá, contabilidade tributária, departamento pessoal Maringá, planejamento tributário Maringá, contabilidade para empresas" />
-    <meta name="author" content="EXATA Assessoria Contábil" />
-    <meta property="og:title" content="EXATA Assessoria Contábil - Contabilidade em Maringá" />
-    <meta property="og:description" content="Soluções contábeis completas para empresas e pessoas físicas, com atendimento humanizado e agilidade." />
-    <meta property="og:type" content="website" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <title>Exata Contábil Website Build</title>
-    <meta property="og:image" content="https://bolt.new/static/og_default.png">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Mapa Leaflet</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <style>
+        /* Defina o tamanho do mapa */
+        #map {
+            height: 400px; /* você pode mudar o tamanho */
+            width: 100%;
+        }
+    </style>
 </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+<body>
+
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        var map = L.map('map').setView([-23.408143553935233, -51.899813003429415], 15);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        L.marker([-23.408143553935233, -51.899813003429415]).addTo(map)
+            .bindPopup('Localização definida.')
+            .openPopup();
+    </script>
+
+</body>
 </html>
