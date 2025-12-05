@@ -1,6 +1,7 @@
+import { useEffect } from 'react';
 import { Building2, Calculator, FileText, Users, TrendingUp, Shield, Clock, Award } from 'lucide-react';
 import { services } from '../data/services';
-import * as L from 'leaflet';
+import L from 'leaflet';
 
 interface HomeProps {
   onNavigate: (page: string, serviceId?: string) => void;
@@ -44,6 +45,28 @@ export default function Home({ onNavigate }: HomeProps) {
     Users
   };
 
+  // 🔹 Inicializar o mapa corretamente no React
+  useEffect(() => {
+    const map = L.map('map').setView(
+      [-23.408143553935233, -51.899813003429415],
+      13
+    );
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors',
+    }).addTo(map);
+
+    L.marker([-23.408143553935233, -51.899813003429415])
+      .addTo(map)
+      .bindPopup('Localização Definida')
+      .openPopup();
+
+    // cleanup quando o componente desmontar
+    return () => {
+      map.remove();
+    };
+  }, []);
+
   return (
     <div className="min-h-screen">
       <section className="relative bg-gradient-to-br from-[#001a4d] via-[#002d6d] to-[#001a4d] text-white py-20 md:py-32">
@@ -62,27 +85,3 @@ export default function Home({ onNavigate }: HomeProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-semibold text-lg text-center shadow-lg"
-              >
-                Fale com um Contador
-              </a>
-              <button
-                onClick={() => onNavigate('services')}
-                className="bg-white text-[#001a4d] px-8 py-4 rounded-lg hover:bg-gray-100 transition font-semibold text-lg shadow-lg"
-              >
-                Conheça nossos Serviços
-              </button>
-              <script>
-                var map = L.map('map').setView([-23.408143553935233, -51.899813003429415], 13);
-                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                  attribution: "&copy; OpenStreetMap contributors",
-              }).addTo(map);
-                L.marker([-23.408143553935233, -51.899813003429415]).addTo(map).
-                  bindPopup("Localização Definida").open.Popup
-                </script>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
